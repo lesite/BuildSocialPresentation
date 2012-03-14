@@ -59,24 +59,14 @@
 <section class="slide" id="team">
     <h2>The Development Team</h2>
     <ul>
-        <li>
-            <h3>Nicholas Asch</h3>
-        </li>
-        <li>
-            <h3>Alice Bevan-McGregor</h3>
-        </li>
-        <li>
-            <h3>Nicolas Cadou</h3>
-        </li>
-        <li>
-            <h3>Blaise Laflamme</h3>
-        </li>
-        <li>
-            <h3>Egor Miadzvedeu</h3>
-        </li>
-        <li>
-            <h3>Zachary Allatt</h3>
-        </li>
+        <li><h3>Alice Bevan-McGregor</h3></li>
+        <li><h3>Blaise Laflamme</h3></li>
+        <li><h3>Egor Miadzvedeu</h3></li>
+        <li><h3>Mathieu Leduc-Hamel</h3></li>
+        <li><h3>Nicholas Asch</h3></li>
+        <li><h3>Nicolas Cadou</h3></li>
+        <li><h3>Zachary Allatt</h3></li>
+    </ul>
 </section>
 
 <section class="slide" id="ncadou">
@@ -652,6 +642,78 @@ def make_steps():
     return obj(*args, **kwargs)
 </code></pre>
 </section>
+
+
+<section class="slide" id="notice-1">
+    <h2>Notifications &amp; Invitations</h2>
+    <p>Handling these is a bit of a pain.</p>
+    <ul>
+        <li class="slide" id="notice-i1"><h3>Requests API versioning.</h3></li>
+        <li class="slide" id="notice-i2"><h3>Forced upgrade with short notice.</h3></li>
+        <li class="slide" id="notice-i3"><h3>Invitations with pure JavaScript interface.</h3></li>
+        <li class="slide" id="notice-i4"><h3>Inconsistent returned values.</h3></li>
+<pre class="slide" id="notice-i5"><code>{error: ''}
+{error: []}
+{error: "some error"}
+
+{some_id: "foo"}
+{some_id: ["foo"]}
+{some_id: {some_id: "foo"}}</code></pre>
+    </ul>
+</section>
+
+<section class="slide" id="notice-2">
+    <h2>Notifications &amp; Invitations</h2>
+    <p>Roundabout passing of data.</p>
+    <ol>
+        <li class="slide" id="notice-r1"><h3>User invites another using UI.</h3></li>
+        <li class="slide" id="notice-r2"><h3>JavaScript call to Facebook API.</h3></li>
+        <li class="slide" id="notice-r3"><h3>Returned data includes request ID.</h3></li>
+        <li class="slide" id="notice-r4"><h3>Additional call to own API to notify.</h3></li>
+        <li class="slide" id="notice-r5"><h3>Background RPC spawned to pull in details.</h3></li>
+        <p class="slide" id="notice-r6">(Source, target, destination route &amp; extra metadata we supply.)</p>
+    </ol>
+    <h3 class="slide" id="notice-r7">Crazy!</h3>
+</section>
+
+<section class="slide" id="notice-3a">
+    <h2>Notifications &amp; Invitations</h2>
+    <p>Handling these is a bit of a pain.</p>
+    <ul>
+        <li class="slide" id="notice-p1"><h3>Our API is unified across notices and invites.</h3></li>
+        <li class="slide" id="notice-p2"><h3>The model is likewise unified:</h3></li>
+        <pre class="slide" id="notice-p3"><code>class Notice(db.Document):
+    id = db.ObjectIdField()
+    fbid = db.StringField()
+
+    origin = db.StringField()
+    target = db.StringField()
+    invitation = db.BooleanField()
+
+    message = db.StringField()
+    data = db.DictField()
+
+
+class ShowNotice(Notice):
+    relation = db.ReferenceField(Show)
+
+# ...</code></pre>
+    </ul>
+</section>
+
+<section class="slide" id="notice-3b">
+    <h2>Notifications &amp; Invitations</h2>
+    <p>Cont'd.</p>
+    <ul>
+        <li class="slide" id="notice-p4"><h3>Multiple incoming request IDs…</h3></li>
+        <li class="slide" id="notice-p5"><h3>Request ID deduplication…</h3></li>
+        <li class="slide" id="notice-p6"><h3>Manually clearing notifications from Facebook…</h3></li>
+        <li class="slide" id="notice-p7"><h3>Test users can't be messaged unless they sign in…</h3></li>
+        <p class="slide" id="notice-p8">"User has not agreed to terms of service."</p>
+        <li class="slide" id="notice-p9"><h3>Diagnostic hell.</h3></li>
+    </ul>
+</section>
+
 
 <section class="slide" id="p3p-1">
     <h2>Cookies and IE</h2>
