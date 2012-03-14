@@ -653,6 +653,52 @@ def make_steps():
 </code></pre>
 </section>
 
+<section class="slide" id="p3p-1">
+    <h2>Cookies and IE</h2>
+    <p>The first rule of an IFRAME is...</p>
+    <p>What happens in an IFRAME, stays in an IFRAME</p>
+    <p>&nbsp;</p>
+    <ul class="slide">
+        <li>IE treats cookies differently in an IFRAME</li>
+        <li>
+            One solution is to not use cookies,
+            another one is to set P3P headers
+        </li>
+        <li>
+            P3P: Platform for Privacy Preferences
+            (<a href="http://www.w3.org/TR/P3P/">http://www.w3.org/TR/P3P/</a>)
+        </li>
+    </ul>
+</section>
+
+<section class="slide" id="p3p-2">
+    <h2>P3P is... interesting</h2>
+    <p class="slide">
+        P3P: CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND
+        CNT"
+    </p>
+    <p class="slide">
+        Here's Facebook's own:<br>
+        P3P: CP="<u>Facebook does not have a P3P policy</u>. Learn why here:
+        <a href="http://fb.me/p3p">http://fb.me/p3p</a>"
+    </p>
+    <ul class="slide">
+        <li>DISPUTES</li>
+        <li>REMEDIES</li>
+        <li>NON-IDENTIFIABLE</li>
+        <li>PURPOSE</li>
+        <li>RECIPIENT</li>
+        <li>RETENTION</li>
+        <li>...</li>
+    </ul>
+    <p class="slide">
+        P3P editor:
+        <a href="http://www.informationliberation.com/p3p/">
+            http://www.informationliberation.com/p3p/
+        </a>
+    </p>
+</section>
+
 <section class="slide" id="fin">
     <h1>Questions? Comments?</h1>
 </section>
